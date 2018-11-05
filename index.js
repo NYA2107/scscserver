@@ -2,7 +2,7 @@ const bodyParser = require('body-parser')
 const sql = require('mysql')
 const express = require('express')
 const app = express()
-const port = 2000
+const port = process.env.PORT
 const User = require('./user.js')
 
 //CREATE CONNECTION
