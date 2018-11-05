@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "scscserver",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,14 @@
     "express": "^4.16.4",
     "mysql": "^2.16.0"
   },
+  "engines":{
+    "node":"8.12.0"
+  },
+  "keywords":[
+    "node",
+    "heroku",
+    "express"
+  ],
   "devDependencies": {
     "nodemon": "^1.18.5"
   }
