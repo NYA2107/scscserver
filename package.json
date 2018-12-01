@@ -9,23 +9,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.5",
+    "random-id": "^1.0.3"
   },
-  "engines":{
-    "node":"8.12.0"
+  "engines": {
+    "node": "8.12.0"
   },
-  "repository":{
-    "type":"git",
-    "url":"https://github.com/NYA2107/scscserver"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NYA2107/scscserver"
   },
-  "keywords":[
+  "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "devDependencies": {
-    
-  }
+  "devDependencies": {}
 }
