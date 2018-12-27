@@ -1,4 +1,3 @@
-
 class Komputer{
 	constructor(conn){
 		this.conn = conn;
@@ -24,20 +23,20 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	setTanggalValidasi(id,tanggal){
-		const query =  `UPDATE komputer SET tanggalValidasi = '${tanggal}' WHERE komputer.idKomputer = '${id}'`;
-        return new Promise((resolve,reject)=>{
-			this.runQuery(query, resolve, reject);
-		})
-	}
-	getTeknisi(id){
-		const query =  `SELECT teknisi.* FROM komputer, teknisi WHERE komputer.idTeknisi = teknisi.idTeknisi AND idKomputer = '${id}'`;
+	getTeknisiKomputer(idKomputer){
+		const query =  `SELECT teknisi.* FROM komputer, teknisi WHERE komputer.idTeknisi = teknisi.idTeknisi AND idKomputer = '${idKomputer}'`;
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	getTeknisiKomputer(idTeknisi){
+	getTeknisi(idTeknisi){
 		const query =  `SELECT * FROM teknisi WHERE teknisi.idTeknisi = '${idTeknisi}'`;
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getAdminKomputer(idKomputer){
+		const query =  `SELECT admin.* FROM komputer, admin WHERE komputer.idAdmin = admin.idAdmin AND idKomputer = '${idKomputer}'`;
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
@@ -48,26 +47,14 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	getKeluhan(id){
-		const query = `SELECT keluhan FROM keluhan, komputer, memiliki_keluhan WHERE komputer.idKomputer = memiliki_keluhan.idKomputer AND keluhan.idKeluhan = memiliki_keluhan.idKeluhan AND memiliki_keluhan.idKomputer = '${id}'`
+	getKeluhan(idKomputer){
+		const query = `SELECT keluhan FROM keluhan, komputer, memiliki_keluhan WHERE komputer.idKomputer = memiliki_keluhan.idKomputer AND keluhan.idKeluhan = memiliki_keluhan.idKeluhan AND memiliki_keluhan.idKomputer = '${idKomputer}'`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	getKelengkapan(id){
-		const query = `SELECT kelengkapan FROM kelengkapan, komputer, memiliki_kelengkapan WHERE komputer.idKomputer = memiliki_kelengkapan.idKomputer AND kelengkapan.idKelengkapan = memiliki_kelengkapan.idKelengkapan AND memiliki_kelengkapan.idKomputer = '${id}'`
-		return new Promise((resolve,reject)=>{
-			this.runQuery(query, resolve, reject);
-		})
-	}
-	getIssue(id){
-		const query = `SELECT idIssue, issue, warnLevel FROM issue, komputer WHERE komputer.idKomputer = issue.idKomputer AND komputer.idKomputer = '${id}'`
-		return new Promise((resolve,reject)=>{
-			this.runQuery(query, resolve, reject);
-		})
-	}
-	getSolusi(idKomputer){
-		const query = `SELECT solusi.* FROM issue, solusi,komputer WHERE issue.idIssue = solusi.idIssue AND komputer.idKomputer = issue.idKomputer AND komputer.idKomputer = '${idKomputer}'`
+	getKelengkapan(idKomputer){
+		const query = `SELECT kelengkapan FROM kelengkapan, komputer, memiliki_kelengkapan WHERE komputer.idKomputer = memiliki_kelengkapan.idKomputer AND kelengkapan.idKelengkapan = memiliki_kelengkapan.idKelengkapan AND memiliki_kelengkapan.idKomputer = '${idKomputer}'`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
@@ -102,13 +89,13 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	clearSolusi(id){
+	clearChoosenSolusi(id){
 		const query = `UPDATE permasalahan SET choosen = NULL WHERE permasalahan.idKomputer = '${id}'`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	setSolusi(idKomputer,idSolusi){
+	setChoosenSolusi(idKomputer,idSolusi){
 		const query = `UPDATE permasalahan SET choosen = 1 WHERE permasalahan.idSolusi = ${idSolusi} AND permasalahan.idKomputer = '${idKomputer}'`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
@@ -132,8 +119,20 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
-	setTanggalDiambil(idKomputer, tanggalDiambil){
-		const query = `UPDATE komputer SET tanggalDikerjakan = '${tanggalDiambil}' WHERE komputer.idKomputer = '${idKomputer}'`
+	setDiambil(idKomputer,namaKeluar,tanggalKeluar){
+		const query = `UPDATE komputer SET namaKeluar = '${namaKeluar}', tanggalKeluar = '${tanggalKeluar}' WHERE komputer.idKomputer = '${idKomputer}';`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getSemuaKomputer(){
+		const query = `SELECT * FROM komputer WHERE 1`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getAdminLogin(idAdmin, password){
+		const query = `SELECT * FROM admin WHERE idAdmin = '${idAdmin}' AND password = '${password}'`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
