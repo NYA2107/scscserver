@@ -2,7 +2,6 @@ const bodyParser = require('body-parser')
 const express = require('express')
 var cors = require('cors')
 const app = express()
-const randomId = require('random-id');
 const Controller = require('./controller.js')
 
 // process.env.PORT || 
@@ -18,11 +17,7 @@ app.use(function(req, res, next) {
 });
   
 
-const getRandomId = () =>{
-	const len = 10
-	const pattern = 'aA0' 
-	return randomId(len, pattern)
-}
+
 
 
 const control = new Controller()
@@ -79,6 +74,27 @@ app.post('/loginAdmin',(req,res)=>{
 })
 app.post('/admin',(req,res)=>{
 	control.admin(req,res)
+})
+app.get('/randomId',(req,res)=>{
+	control.randomId(req,res)
+})
+app.post('/addKeluhan',(req,res)=>{
+	control.addKeluhan(req,res)
+})
+app.post('/addKelengkapan',(req,res)=>{
+	control.addKelengkapan(req,res)
+})
+app.get('/allKeluhan',(req,res)=>{
+	control.getAllKeluhan(req,res)
+})
+app.get('/allKelengkapan',(req,res)=>{
+	control.getAllKelengkapan(req,res)
+})
+app.post('/addKomputer',(req,res)=>{
+	control.addKomputer(req,res)
+})
+app.post('/setPassword',(req,res)=>{
+	control.setPassword(req,res)
 })
 
 //PORT LISTENER

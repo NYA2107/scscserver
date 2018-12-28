@@ -137,5 +137,53 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
+	addKeluhan(keluhan){
+		const query = `INSERT INTO keluhan (idKeluhan, keluhan) VALUES (NULL, '${keluhan}')`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addKelengkapan(kelengkapan){
+		const query = `INSERT INTO kelengkapan (idKelengkapan, kelengkapan) VALUES (NULL, '${kelengkapan}')`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getAllKeluhan(){
+		const query = `SELECT * FROM keluhan`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getAllKelengkapan(){
+		const query = `SELECT * FROM kelengkapan`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addKomputer(idKomputer, password, namaKomputer, noHP, namaMasuk, tanggalMasuk, idAdmin){
+		const query = `INSERT INTO komputer (idKomputer, password, namaKomputer, noHP, namaMasuk, tanggalMasuk, idAdmin) VALUES ('${idKomputer}', '${password}', '${namaKomputer}', '${noHP}', '${namaMasuk}','${tanggalMasuk}','${idAdmin}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addKelengkapanKomputer(idKomputer, kelengkapan){
+		const query = `INSERT INTO memiliki_kelengkapan (idKomputer, idKelengkapan) VALUES ('${idKomputer}', (SELECT idKelengkapan FROM kelengkapan WHERE kelengkapan.kelengkapan = '${kelengkapan}'))`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addKeluhanKomputer(idKomputer, keluhan){
+		const query = `INSERT INTO memiliki_keluhan (idKomputer, idKeluhan) VALUES ('${idKomputer}', (SELECT idKeluhan FROM keluhan WHERE keluhan.keluhan = '${keluhan}'))`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	setPassword(idKomputer,password){
+		const query = `UPDATE komputer SET password = '${password}' WHERE komputer.idKomputer = '${idKomputer}'`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
 } 
 module.exports = Komputer;

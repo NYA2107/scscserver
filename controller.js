@@ -1,6 +1,8 @@
 const Komputer = require('./komputer.js')
 const Admin = require('./admin.js')
 const Connection = require('./connection.js')
+const async = require('async')
+const each = require ('async/each')
 
 class Controller{
 	constructor(){
@@ -413,6 +415,106 @@ class Controller{
 			res.send('gagal')
 		})
 	}
+
+	randomId(req,res){
+		const randomId = require('random-id');
+		const len = 10
+		const pattern = 'aA0'
+		const checkLoop = true
+		const id = randomId(len, pattern)
+		console.log('aa')
+		const komputer = this.komputerQuery.getKomputer(id)
+		komputer
+		.then(result =>{
+			if(result[0] == undefined){
+				res.send(id)
+			}else{
+				res.send('sudah ada')
+			}
+		})		
+	}
+	addKeluhan(req,res){
+		const keluhan = this.komputerQuery.addKeluhan(req.body.keluhan)
+		keluhan
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(400).send('error')
+		})
+	}
+	addKelengkapan(req,res){
+		const kelengkapan = this.komputerQuery.addKelengkapan(req.body.kelengkapan)
+		kelengkapan
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(400).send('error')
+		})
+	}
+	getAllKeluhan(req,res){
+		const keluhan = this.komputerQuery.getAllKeluhan()
+		keluhan
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(400).send('error')
+		})
+	}
+	getAllKelengkapan(req,res){
+		const kelengkapan = this.komputerQuery.getAllKelengkapan()
+		kelengkapan
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(400).send('error')
+		})
+	}
+	addKomputer(req,res){
+		const komputer = this.komputerQuery.addKomputer(req.body.idKomputer, req.body.password, req.body.namaKomputer, req.body.noHP, req.body.namaMasuk, req.body.tanggalMasuk, req.body.idAdmin)
+		komputer
+		.then(result =>{
+			req.body.kelengkapan.forEach(v =>{
+				this.komputerQuery.addKelengkapanKomputer(req.body.idKomputer, v)
+				.then(result =>{
+					console.log(result)
+				})
+				.catch(err =>{
+					res.status(400).send(err)
+				})
+			})
+		})
+		.then(()=>{
+			req.body.keluhan.forEach(v =>{
+				this.komputerQuery.addKeluhanKomputer(req.body.idKomputer, v)
+				.then(result =>{
+					console.log(result)
+				})
+				.catch(err =>{
+					res.status(400).send(err)
+				})
+			})
+		})
+		.then(()=>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(400).send(err)
+		})
+	}
+	setPassword(req,res){
+		this.komputerQuery.setPassword(req.body.idKomputer, req.body.password)
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(400).send('error')
+		})
+	}
+
 }
 
 module.exports = Controller;
