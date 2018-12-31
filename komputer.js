@@ -258,5 +258,6 @@ class Komputer{
 		})
 	}
 	
+	
 } 
 module.exports = Komputer;

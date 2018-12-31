@@ -3,6 +3,8 @@ const express = require('express')
 var cors = require('cors')
 const app = express()
 const Controller = require('./controller.js')
+const Sms = require('./sms.js')
+const puretext = require('puretext');
 
 // process.env.PORT || 
 const port = 2000
@@ -21,6 +23,7 @@ app.use(function(req, res, next) {
 
 
 const control = new Controller()
+const sms = new Sms()
 
 app.get('/',(req, res)=>{
 	res.send({
@@ -144,6 +147,9 @@ app.post('/biayaTambahanKomputer',(req,res)=>{
 })
 app.post('/setCatatanTeknisi',(req,res)=>{
 	control.setCatatanTeknisi(req,res)
+})
+app.post('/sms',(req,res) =>{
+	sms.sendSms(req,res)
 })
 
 
