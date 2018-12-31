@@ -515,6 +515,161 @@ class Controller{
 		})
 	}
 
+	loginTeknisi(req,res){
+		const teknisi = this.komputerQuery.getTeknisiLogin(req.body.idTeknisi, req.body.password)
+		teknisi
+		.then(result =>{
+			if(result[0] == undefined){
+				throw err
+			}else{
+				res.send(result[0].idTeknisi)
+			}
+		})
+		.catch(err =>{
+			res.send('gagal')
+		})
+	}
+	kerjakan(req,res){
+		const teknisi = this.komputerQuery.setIdTeknisiKomputer(req.body.idKomputer, req.body.idTeknisi)
+		teknisi
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(400).send('gagal')
+		})
+	}
+	issueSolusiKomputer(req,res){
+		const issue 			= this.komputerQuery.getIssuePermasalahan(req.body.idKomputer)
+		const solusi 			= this.komputerQuery.getSolusiPermasalahan(req.body.idKomputer)
+		const issueSolusi 		= this.getIssueSolusi(issue,solusi)
+		issueSolusi
+		.then(result =>{
+			res.send(result)
+		})
+	}
+	addIssue(req,res){
+		const issue = this.komputerQuery.addIssue(req.body.issue, req.body.warnLevel)
+		issue
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(200).send('gagal')
+		})
+	}
+	addSolusi(req,res){
+		const solusi = this.komputerQuery.addSolusi(req.body.solusi, req.body.harga)
+		solusi
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(200).send('gagal')
+		})
+	}
+	addBiayaTambahan(req,res){
+		const tambahan = this.komputerQuery.addBiayaTambahan(req.body.tambahan, req.body.harga)
+		.then(result =>{
+			res.send('succes')
+		})
+		.catch(err =>{
+			res.status(200).send('gagal')
+		})
+	}
+	getAllIssue(req,res){
+		const issue = this.komputerQuery.getAllIssue()
+		issue
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	getAllSolusi(req,res){
+		const solusi = this.komputerQuery.getAllSolusi()
+		solusi
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	addPermasalahanKomputer(req,res){
+		const permasalahan = this.komputerQuery.addPermasalahanKomputer(req.body.idKomputer, req.body.idIssue, req.body.idSolusi)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	setTanggalValidasi(req,res){
+		const tanggal = this.komputerQuery.setTanggalValidasi(req.body.idKomputer, req.body.tanggalValidasi)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	addSolusiDikerjakan(req,res){
+		const solusi = this.komputerQuery.addSolusiDikerjakan(req.body.idKomputer,req.body.idSolusi)
+		solusi
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	setTanggalDikerjakan(req,res){
+		const tanggal = this.komputerQuery.setTanggalDikerjakan(req.body.idKomputer, req.body.tanggalDikerjakan)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	getAllBiayaTambahan(req,res){
+		const tambahan = this.komputerQuery.getAllBiayaTambahan()
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	setBiayaTambahanKomputer(req,res){
+		const tambahan = this.komputerQuery.setBiayaTambahanKomputer(req.body.idKomputer, req.body.idTambahan)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	setTanggalSelesai(req,res){
+		const tanggal = this.komputerQuery.setTanggalSelesai(req.body.idKomputer, req.body.tanggalSelesai)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
+	setCatatanTeknisi(req,res){
+		const tanggal = this.komputerQuery.setCatatanTeknisi(req.body.idKomputer, req.body.catatan)
+		.then(result =>{
+			res.send(result)
+		})
+		.catch(err =>{
+			res.status(200).send(err)
+		})
+	}
 }
 
 module.exports = Controller;

@@ -60,7 +60,7 @@ class Komputer{
 		})
 	}
 	getChoosenSolusi(idKomputer){
-		const query = `SELECT solusi.solusi, solusi.harga FROM solusi WHERE solusi.idSolusi IN (SELECT permasalahan.IdSolusi FROM permasalahan, solusi, komputer WHERE komputer.idKomputer = permasalahan.idKomputer AND permasalahan.choosen = 1 AND komputer.idKomputer = '${idKomputer}')`
+		const query = `SELECT solusi.idSolusi, solusi.solusi, solusi.harga FROM solusi WHERE solusi.idSolusi IN (SELECT permasalahan.IdSolusi FROM permasalahan, solusi, komputer WHERE komputer.idKomputer = permasalahan.idKomputer AND permasalahan.choosen = 1 AND komputer.idKomputer = '${idKomputer}')`
 		return new Promise((resolve,reject)=>{
 			this.runQuery(query, resolve, reject);
 		})
@@ -185,5 +185,78 @@ class Komputer{
 			this.runQuery(query, resolve, reject);
 		})
 	}
+	getTeknisiLogin(idTeknisi, password){
+		const query = `SELECT * FROM teknisi WHERE idTeknisi = '${idTeknisi}' AND password = '${password}'`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	setIdTeknisiKomputer(idKomputer,idTeknisi){
+		const query = `UPDATE komputer SET idTeknisi = '${idTeknisi}' WHERE komputer.idKomputer = '${idKomputer}';`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addIssue(issue,warnLevel){
+		const query = `INSERT INTO issue (idIssue, issue, warnLevel) VALUES (NULL, '${issue}', '${warnLevel}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addSolusi(solusi,harga){
+		const query = `INSERT INTO solusi (idSolusi, solusi, harga) VALUES (NULL, '${solusi}', '${harga}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	addBiayaTambahan(tambahan,harga){
+		const query = `INSERT INTO biaya_tambahan (idTambahan, tambahan, harga) VALUES (NULL, '${tambahan}', '${harga}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	setBiayaTambahanKomputer(idKomputer,idTambahan){
+		const query = `INSERT INTO memiliki_biaya_tambahan (idKomputer, idTambahan) VALUES ('${idKomputer}', '${idTambahan}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	getAllIssue(){
+		const query = `SELECT * from issue`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})	
+	}
+	getAllSolusi(){
+		const query = `SELECT * from solusi`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})	
+	}
+	getAllBiayaTambahan(){
+		const query = `SELECT * from biaya_tambahan`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})	
+	}
+	addPermasalahanKomputer(idKomputer, idIssue, idSolusi){
+		const query = `INSERT INTO permasalahan (idKomputer, idIssue, IdSolusi, choosen) VALUES ('${idKomputer}', '${idIssue}', '${idSolusi}', NULL);`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})	
+	}
+	addSolusiDikerjakan(idKomputer, idSolusi){
+		const query = `INSERT INTO solusi_dikerjakan (idKomputer, idSolusi) VALUES ('${idKomputer}', '${idSolusi}');`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	setCatatanTeknisi(idKomputer, catatan){
+		const query = `UPDATE komputer SET catatanTeknisi = '${catatan}' WHERE komputer.idKomputer = '${idKomputer}';`
+		return new Promise((resolve,reject)=>{
+			this.runQuery(query, resolve, reject);
+		})
+	}
+	
 } 
 module.exports = Komputer;

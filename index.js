@@ -69,6 +69,7 @@ app.post('/komputerDetail',(req,res)=>{
 app.post('/ambilKomputer',(req,res)=>{
 	control.ambilKomputer(req,res)
 })
+
 app.post('/loginAdmin',(req,res)=>{
 	control.loginAdmin(req,res)
 })
@@ -96,6 +97,58 @@ app.post('/addKomputer',(req,res)=>{
 app.post('/setPassword',(req,res)=>{
 	control.setPassword(req,res)
 })
+app.post('/loginTeknisi',(req,res)=>{
+	control.loginTeknisi(req,res)
+})
+app.post('/kerjakan',(req,res)=>{
+	control.kerjakan(req,res)
+})
+app.post('/issueSolusiKomputer',(req,res)=>{
+	control.issueSolusiKomputer(req,res)
+})
+app.post('/addIssue',(req,res)=>{
+	control.addIssue(req,res)
+})
+app.post('/addSolusi',(req,res)=>{
+	control.addSolusi(req,res)
+})
+app.post('/addBiayaTambahan',(req,res)=>{
+	control.addBiayaTambahan(req,res)
+})
+app.get('/allIssue',(req,res)=>{
+	control.getAllIssue(req,res)
+})
+app.get('/allSolusi',(req,res)=>{
+	control.getAllSolusi(req,res)
+})
+app.get('/allBiayaTambahan',(req,res)=>{
+	control.getAllBiayaTambahan(req,res)
+})
+app.post('/addPermasalahanKomputer',(req,res)=>{
+	control.addPermasalahanKomputer(req,res)
+})
+app.post('/setTanggalValidasi',(req,res)=>{
+	control.setTanggalValidasi(req,res)
+})
+app.post('/setTanggalDikerjakan',(req,res)=>{
+	control.setTanggalDikerjakan(req,res)
+})
+app.post('/setTanggalSelesai',(req,res)=>{
+	control.setTanggalSelesai(req,res)
+})
+app.post('/solusiDikerjakan',(req,res)=>{
+	control.addSolusiDikerjakan(req,res)
+})
+app.post('/biayaTambahanKomputer',(req,res)=>{
+	control.setBiayaTambahanKomputer(req,res)
+})
+app.post('/setCatatanTeknisi',(req,res)=>{
+	control.setCatatanTeknisi(req,res)
+})
+
+
+
+
 
 //PORT LISTENER
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
