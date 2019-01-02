@@ -27,7 +27,14 @@ const sms = new Sms()
 
 app.get('/',(req, res)=>{
 	res.send({
-		hai:'HAII'
+		nama:'Imam',
+		NIM:'M0516027'
+	})
+})
+app.get('/Paijo',(req, res)=>{
+	res.send({
+		nama:'Paijo',
+		NIM:'M0516000'
 	})
 })
 
